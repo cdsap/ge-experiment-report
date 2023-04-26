@@ -49,8 +49,12 @@ runs:
            arrayTags=(${IN//,/ })
            tagsParsed=""
            variants=""
+           echo "inaki1"
+           echo $tags
+           echo "inaki2"
            for val in "${arrayTags[@]}";
            do
+              echo "paso"
               tagsParsed="$tagsParsed --tags=$val"
            done
            echo $tagsParsed
