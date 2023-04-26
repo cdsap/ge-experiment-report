@@ -53,7 +53,7 @@ runs:
            do
               tagsParsed="$tagsParsed --tags=$val"
            done
-           experiment/build/install/experiment/bin/experiment --variants="$tags" --url=${{ inputs.url }}  --task=${{ inputs.task }} --max-builds=${{ inputs.max-builds }}  $tagsParsed  --tags=experiment --tags=${{github.run_number}} --experiment-id=${{ inputs.experiment-id }} --project=${{ inputs.project }} --api-key=${{ inputs.api-key }}
+           build/install/experiment/bin/experiment --variants="$tags" --url=${{ inputs.url }}  --task=${{ inputs.task }} --max-builds=${{ inputs.max-builds }}  $tagsParsed  --tags=experiment --tags=${{github.run_number}} --experiment-id=${{ inputs.experiment-id }} --project=${{ inputs.project }} --api-key=${{ inputs.api-key }}
            CONTENT=$(cat results_experiment)
            echo "$CONTENT" >> $GITHUB_STEP_SUMMARY
       shell: bash
