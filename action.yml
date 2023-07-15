@@ -7,6 +7,7 @@ inputs:
   url:
     description: ""
     required: true
+    default: "https://ge.solutions-team.gradle.com"
   task:
     description: ""
     requierd: true
@@ -25,7 +26,7 @@ inputs:
     required: true
   gh_token:
     description: ""
-    required: true
+    required: true  
 
 runs:
   using: 'composite'
@@ -38,7 +39,7 @@ runs:
     - name: Execute Gradle build
       id : geapix
       run: |
-           curl -L https://github.com/cdsap/CompareGEBuilds/releases/download/v.0.1.1/buildsComparison --output buildsComparison
+           curl -L https://github.com/cdsap/CompareGEBuilds/releases/download/v.0.1.2/buildsComparison --output buildsComparison
            chmod 0757 buildsComparison
            #process tags
            tags="${{ inputs.tags }}"
@@ -49,9 +50,7 @@ runs:
            do
               tagsParsed="$tagsParsed --tags=$val"
            done
-           echo $tagsParsed
-           echo "./buildsComparison --url=${{ inputs.url }}  --tasks=${{ inputs.task }} --max-builds=${{ inputs.max-builds }}  $tagsParsed  --tags=experiment --tags=${{github.run_number}} --experiment-id=${{ inputs.experiment-id }} --project=${{ inputs.project }} --api-key=${{ inputs.api-key }}"
-           #./buildsComparison --url=${{ inputs.url }}  --tasks=${{ inputs.task }} --max-builds=${{ inputs.max-builds }}  $tagsParsed  --tags=experiment --tags=${{github.run_number}} --experiment-id=${{ inputs.experiment-id }} --project=${{ inputs.project }} --api-key=${{ inputs.api-key }}
+           ./buildsComparison --url=${{ inputs.url }}  --tasks=${{ inputs.task }} --max-builds=${{ inputs.max-builds }}  $tagsParsed  --tags=experiment --tags=${{github.run_number}} --experiment-id=${{ inputs.experiment-id }}  --api-key=${{ inputs.api-key }}
            CONTENT=$(cat results_experiment)
            echo "$CONTENT" >> $GITHUB_STEP_SUMMARY
       shell: bash
